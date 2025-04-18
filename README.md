@@ -1,8 +1,8 @@
-# 株式会社ZAICO Android エンジニアコーディングテスト
+# 株式会社 ZAICO Android エンジニアコーディングテスト
 
 ## 概要
 
-本プロジェクトは株式会社ZAICO（以下弊社）が、弊社に Android エンジニアを希望する方に出す課題のベースプロジェクトです。
+本プロジェクトは株式会社 ZAICO（以下弊社）が、弊社に Android エンジニアを希望する方に出す課題のベースプロジェクトです。
 下記の概要を詳しく読んだ上で課題を取り組んでください。
 
 ## アプリ仕様
@@ -11,26 +11,41 @@
 
 <img src="sample/app_sample.gif" width="320">
 
-### zaico APIの仕様と使い方
+### zaico API の仕様と使い方
 
 API 仕様は以下の通りです。
 
 [zaico API Document](https://zaicodev.github.io/zaico_api_doc/)
 
-zaicoのAPIを利用するためzaicoのアカウントを登録し、APIトークンを取得して使用してください。
+zaico の API を利用するため zaico のアカウントを登録し、API トークンを取得して使用してください。
 
-[API利用に関するドキュメント](https://support.zaico.co.jp/hc/ja/articles/4406632009625-zaico-API%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E5%9C%A8%E5%BA%AB%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E6%93%8D%E4%BD%9C%E3%81%99%E3%82%8B)
+[API 利用に関するドキュメント](https://support.zaico.co.jp/hc/ja/articles/4406632009625-zaico-API%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E5%9C%A8%E5%BA%AB%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E6%93%8D%E4%BD%9C%E3%81%99%E3%82%8B)
 
-ビルドしたアプリで動作確認をスムーズに行えるように、まずはzaicoから在庫登録してデータを作成してください。
+ビルドしたアプリで動作確認をスムーズに行えるように、まずは zaico から在庫登録してデータを作成してください。
 
 [在庫登録のドキュメント](https://support.zaico.co.jp/hc/ja/articles/9425011130265--WEB-%E5%9C%A8%E5%BA%AB%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E7%99%BB%E9%8C%B2%E3%81%99%E3%82%8B)
 
 ### 動作確認済の開発環境
 
-- IDE：Android Studio Ladybug Feature Drop | 2024.2.2 Patch 1
-- Kotlin：1.9.24
+- IDE：Android Studio Meerkat | 2024.3.1 Patch 1
+
+  ```
+  Build #AI-243.24978.46.2431.13208083, built on March 13, 2025
+  Runtime version: 21.0.5+-13047016-b750.29 amd64
+  VM: OpenJDK 64-Bit Server VM by JetBrains s.r.o.
+  Toolkit: sun.awt.windows.WToolkit
+  Windows 10.0
+  Kotlin plugin: K2 mode
+  GC: G1 Young Generation, G1 Concurrent GC, G1 Old Generation
+  Memory: 2048M
+  Cores: 8
+  Registry:
+  ide.experimental.ui=true
+  ```
+
+- Kotlin：2.0.21
 - Java：17
-- Gradle：8.8.1
+- Gradle：8.9.1
 - minSdk：28
 - targetSdk：35
 
