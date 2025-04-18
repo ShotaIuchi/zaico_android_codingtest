@@ -3,6 +3,7 @@ package jp.co.zaico.codingtest
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.fab.setOnClickListener { view ->
-            startActivity(AddActivity.createIntent(this))
+            navController.navigate(R.id.action_FirstFragment_to_ThirdFragment, null)
         }
     }
 
