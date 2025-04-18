@@ -38,16 +38,20 @@ class FirstViewModel(
 
             val items = mutableListOf<Inventory>()
 
-            val jsonText = response.bodyAsText()
-            val jsonArray: JsonArray = Json.parseToJsonElement(jsonText).jsonArray
-            for (json in jsonArray) {
-                items.add(
-                    Inventory(
-                        id = json.jsonObject["id"].toString().replace(""""""", "").toInt(),
-                        title = json.jsonObject["title"].toString().replace(""""""", ""),
-                        quantity = json.jsonObject["quantity"].toString().replace(""""""", "")
+            try {
+                val jsonText = response.bodyAsText()
+                val jsonArray: JsonArray = Json.parseToJsonElement(jsonText).jsonArray
+                for (json in jsonArray) {
+                    items.add(
+                        Inventory(
+                            id = json.jsonObject["id"].toString().replace(""""""", "").toInt(),
+                            title = json.jsonObject["title"].toString().replace(""""""", ""),
+                            quantity = json.jsonObject["quantity"].toString().replace(""""""", "")
+                        )
                     )
-                )
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
 
             return@async items.toList()
