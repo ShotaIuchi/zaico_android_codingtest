@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">zaico_android_codingtest</string>
+    <string name="app_name">zaico codingtest</string>
+    <string name="invty_list_screen">在庫一覧</string>
+    <string name="invty_detail_screen">在庫詳細</string>
+    <string name="invty_create_screen">在庫登録</string>
+    <string name="invty_edit_screen">在庫編集</string>
 </resources>
