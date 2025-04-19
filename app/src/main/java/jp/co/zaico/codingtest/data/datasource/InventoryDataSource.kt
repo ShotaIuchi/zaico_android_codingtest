@@ -14,4 +14,8 @@ interface InventoryDataSource {
         @Query("code") code: String? = null
     ): Result<PagedResult<Inventory>>
 
+    suspend fun getInventory(
+        @Query("id") id: String
+    ): Result<Inventory>
+
 }

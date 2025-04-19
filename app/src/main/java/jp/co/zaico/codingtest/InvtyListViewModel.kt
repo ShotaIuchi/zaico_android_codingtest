@@ -3,6 +3,7 @@ package jp.co.zaico.codingtest
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import jp.co.zaico.codingtest.InvtyListUiEvent.*
 import jp.co.zaico.codingtest.data.repository.InventoryRepository
 import jp.co.zaico.codingtest.model.Inventory
 import kotlinx.coroutines.CoroutineScope
@@ -60,7 +61,7 @@ class InvtyListViewModel @Inject constructor(
                                         it.copy(isLoading = false, error = exception.message)
                                     }
                                     _uiEvent.emit(
-                                        InvtyListUiEvent.ShowToast(
+                                        ShowToast(
                                             exception.message ?: "Unknown error"
                                         )
                                     )

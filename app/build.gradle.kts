@@ -74,5 +74,6 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.coil.compose)
 
 }

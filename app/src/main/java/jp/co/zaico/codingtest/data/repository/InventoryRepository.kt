@@ -2,7 +2,6 @@ package jp.co.zaico.codingtest.data.repository
 
 import jp.co.zaico.codingtest.model.Inventory
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 interface InventoryRepository {
 
@@ -14,5 +13,6 @@ interface InventoryRepository {
         code: String? = null
     ): Flow<Result<List<Inventory>>>
 
+    suspend fun getInventory(id: String): Result<Inventory>
 
 }

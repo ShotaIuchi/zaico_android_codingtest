@@ -1,6 +1,7 @@
 package jp.co.zaico.codingtest.model
 
 import android.annotation.SuppressLint
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @SuppressLint("UnsafeOptInUsageError")
@@ -11,5 +12,14 @@ data class Inventory(
     val quantity: String? = null,
     val unit: String? = null,
     val category: String? = null,
-    val state: String? = null
+    val state: String? = null,
+
+    @SerialName("item_image")
+    val image: ItemImage? = null
+)
+
+@SuppressLint("UnsafeOptInUsageError")
+@Serializable
+data class ItemImage(
+    val url: String?
 )

@@ -42,4 +42,13 @@ class InventoryRepositoryImpl @Inject constructor(
                 }
         }
     }
+
+    override suspend fun getInventory(id: String): Result<Inventory> {
+        val result = inventoryDataSource.getInventory(id)
+        return if (result.isSuccess) {
+            Result.success(result.getOrThrow())
+        } else {
+            Result.failure(result.exceptionOrNull() ?: Exception("Unknown error"))
+        }
+    }
 }

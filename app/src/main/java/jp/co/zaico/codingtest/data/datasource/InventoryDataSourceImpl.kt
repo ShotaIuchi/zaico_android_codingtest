@@ -38,6 +38,25 @@ class InventoryDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun getInventory(id: String): Result<Inventory> {
+        return try {
+            val response = inventoryApi.getInventory(id)
+            if (response.isSuccessful) {
+                val inventory = response.body()
+                if (inventory != null) {
+                    Result.success(inventory)
+                } else {
+                    Result.failure(Exception("Inventory not found"))
+                }
+            } else {
+                Result.failure(Exception("Failed to fetch inventory"))
+            }
+        } catch (e: Exception) {
+            android.util.Log.e("InventoryDataSource", "Error fetching inventory", e)
+            Result.failure(e)
+        }
+    }
+
     private fun extractNextPage(linkHeader: String?): Int? {
         return linkHeader
             ?.split(",")
