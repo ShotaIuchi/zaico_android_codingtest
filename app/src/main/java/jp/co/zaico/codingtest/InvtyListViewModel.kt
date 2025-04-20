@@ -16,15 +16,26 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.String
+
+data class InvtySearchQuery(
+    val title: String? = null,
+    val category: String? = null,
+    val place: String? = null,
+    val code: String? = null,
+)
 
 data class InvtyListUiState(
     val isLoading: Boolean = false,
     val inventoryList: List<Inventory> = emptyList(),
-    val error: String? = null
+    val error: String? = null,
+    val searchQuery: InvtySearchQuery = InvtySearchQuery(),
 )
 
 sealed class InvtyListEvent {
     data object LoadInvtyList : InvtyListEvent()
+    data class UpdateQuery(val searchQuery: InvtySearchQuery) : InvtyListEvent()
+    data object ClearSearchQuery : InvtyListEvent()
 }
 
 sealed class InvtyListUiEvent {
@@ -46,9 +57,18 @@ class InvtyListViewModel @Inject constructor(
         when (event) {
             is InvtyListEvent.LoadInvtyList -> {
                 scope.launch {
-                    _uiState.update { it.copy(isLoading = true, error = null) }
+                    _uiState.update {
+                        it.copy(
+                            isLoading = true,
+                            error = null,
+                        )
+                    }
 
-                    inventoryRepository.getInventories()
+                    inventoryRepository.getInventories(
+                        title = uiState.value.searchQuery.title,
+                        category = uiState.value.searchQuery.category,
+                        place = uiState.value.searchQuery.place,
+                        code = uiState.value.searchQuery.code)
                         .collect {
                             it.fold(
                                 onSuccess = { inventoryList ->
@@ -69,6 +89,34 @@ class InvtyListViewModel @Inject constructor(
                             )
                         }
                 }
+            }
+
+            is InvtyListEvent.UpdateQuery -> {
+                _uiState.update {
+                    val current = it.searchQuery
+                    val incoming = event.searchQuery
+
+                    val merged = current.copy(
+                        title = incoming.title ?: current.title,
+                        category = incoming.category ?: current.category,
+                        place = incoming.place ?: current.place,
+                        code = incoming.code ?: current.code,
+                    )
+
+                    it.copy(searchQuery = merged)
+                }
+            }
+
+            is InvtyListEvent.ClearSearchQuery -> {
+                _uiState.update {
+                    it.copy(
+                        isLoading = true,
+                        error = null,
+                        searchQuery = InvtySearchQuery()
+                    )
+                }
+
+                onEvent(InvtyListEvent.LoadInvtyList, scope)
             }
         }
     }

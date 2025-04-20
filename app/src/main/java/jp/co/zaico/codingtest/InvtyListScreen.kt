@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -25,7 +26,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -33,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jp.co.zaico.codingtest.ui.parts.InvtyListItem
+import jp.co.zaico.codingtest.ui.parts.InvtySearchOverlay
 import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,7 +47,10 @@ fun InvtyListScreen(
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     val snackbarHost = remember { SnackbarHostState() }
+
+    var showSearch by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
 
@@ -72,6 +79,9 @@ fun InvtyListScreen(
             TopAppBar(
                 title = { Text(context.getString(R.string.invty_list_screen)) },
                 actions = {
+                    IconButton(onClick = { showSearch = !showSearch }) {
+                        Icon(Icons.Default.Search, contentDescription = "Search")
+                    }
                     IconButton(onClick = {
                         viewModel.onEvent(InvtyListEvent.LoadInvtyList)
                     }) {
@@ -89,9 +99,8 @@ fun InvtyListScreen(
         }
     ) { padding ->
         Box(modifier = Modifier
-            .fillMaxSize()
-            .padding(padding)) {
-
+                .fillMaxSize()
+                .padding(padding)) {
             when {
                 uiState.isLoading -> {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
@@ -116,8 +125,27 @@ fun InvtyListScreen(
                                 inventory = inventory,
                                 onClick = { onEvent(AppNavEvent.ToDetail(it.id.toString())) })
                         }
-                   }
+                    }
                 }
+            }
+
+            if (showSearch) {
+                InvtySearchOverlay(
+                    query = uiState.searchQuery,
+                    onQueryChange = {
+                        viewModel.onEvent(InvtyListEvent.UpdateQuery(it))
+                    },
+                    onSearch = {
+                        showSearch = false
+                        viewModel.onEvent(InvtyListEvent.LoadInvtyList)
+                    },
+                    onClear = {
+                        viewModel.onEvent(InvtyListEvent.ClearSearchQuery)
+                    },
+                    onDismiss = {
+                        showSearch = false
+                    }
+                )
             }
         }
     }
