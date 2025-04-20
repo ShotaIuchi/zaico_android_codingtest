@@ -9,10 +9,12 @@ coreKtx = "1.10.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
+kotlinxCoroutinesTest = "1.9.0"
 kotlinxSerializationJson = "1.6.3"
 lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.8.0"
 composeBom = "2024.09.00"
+mockk = "1.13.7"
 navigationRuntimeKtx = "2.8.9"
 retrofit = "2.9.0"
 converterGson = "2.9.0"
@@ -41,7 +43,9 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converterGson" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }

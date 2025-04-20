@@ -34,7 +34,6 @@ class InventoryDataSourceImpl @Inject constructor(
                 Result.failure(Exception("Failed to fetch inventories"))
             }
         } catch (e: Exception) {
-            android.util.Log.e("InventoryDataSource", "Error fetching inventories", e)
             Result.failure(e)
         }
     }
@@ -53,7 +52,6 @@ class InventoryDataSourceImpl @Inject constructor(
                 Result.failure(Exception("Failed to fetch inventory"))
             }
         } catch (e: Exception) {
-            android.util.Log.e("InventoryDataSource", "Error fetching inventory", e)
             Result.failure(e)
         }
     }
@@ -72,7 +70,6 @@ class InventoryDataSourceImpl @Inject constructor(
                 Result.failure(Exception("Failed to create inventory"))
             }
         } catch (e: Exception) {
-            android.util.Log.e("InventoryDataSource", "Error creating inventory", e)
             Result.failure(e)
         }
     }
@@ -91,7 +88,6 @@ class InventoryDataSourceImpl @Inject constructor(
                 Result.failure(Exception("Failed to edit inventory"))
             }
         } catch (e: Exception) {
-            android.util.Log.e("InventoryDataSource", "Error editing inventory", e)
             Result.failure(e)
         }
     }
