@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.co.zaico.codingtest.InvtyListUiEvent.*
 import jp.co.zaico.codingtest.data.repository.InventoryRepository
 import jp.co.zaico.codingtest.model.Inventory
+import jp.co.zaico.codingtest.usecase.GetInventoriesUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -44,7 +45,7 @@ sealed class InvtyListUiEvent {
 
 @HiltViewModel
 class InvtyListViewModel @Inject constructor(
-    private val inventoryRepository: InventoryRepository
+    private val getInventoriesUseCase: GetInventoriesUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(InvtyListUiState())
@@ -64,7 +65,7 @@ class InvtyListViewModel @Inject constructor(
                         )
                     }
 
-                    inventoryRepository.getInventories(
+                    getInventoriesUseCase(
                         title = uiState.value.searchQuery.title,
                         category = uiState.value.searchQuery.category,
                         place = uiState.value.searchQuery.place,
