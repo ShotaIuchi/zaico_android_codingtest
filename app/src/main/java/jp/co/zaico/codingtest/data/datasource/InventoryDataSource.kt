@@ -2,6 +2,7 @@ package jp.co.zaico.codingtest.data.datasource
 
 import jp.co.zaico.codingtest.common.PagedResult
 import jp.co.zaico.codingtest.model.Inventory
+import jp.co.zaico.codingtest.model.InventoryInput
 import retrofit2.http.Query
 
 interface InventoryDataSource {
@@ -18,4 +19,12 @@ interface InventoryDataSource {
         @Query("id") id: String
     ): Result<Inventory>
 
+    suspend fun createInventory(
+        inventory: InventoryInput
+    ): Result<Inventory>
+
+    suspend fun editInventory(
+        id: String,
+        inventory: InventoryInput
+    ): Result<Inventory>
 }

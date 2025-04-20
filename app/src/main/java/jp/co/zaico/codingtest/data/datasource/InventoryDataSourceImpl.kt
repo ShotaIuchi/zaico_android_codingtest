@@ -5,6 +5,7 @@ import jp.co.zaico.codingtest.data.api.InventoryApi
 import jp.co.zaico.codingtest.model.Inventory
 import javax.inject.Inject
 import androidx.core.net.toUri
+import jp.co.zaico.codingtest.model.InventoryInput
 
 class InventoryDataSourceImpl @Inject constructor(
     private val inventoryApi: InventoryApi
@@ -53,6 +54,44 @@ class InventoryDataSourceImpl @Inject constructor(
             }
         } catch (e: Exception) {
             android.util.Log.e("InventoryDataSource", "Error fetching inventory", e)
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun createInventory(inventory: InventoryInput): Result<Inventory> {
+        return try {
+            val response = inventoryApi.createInventory(inventory)
+            if (response.isSuccessful) {
+                val createdInventory = response.body()
+                if (createdInventory != null) {
+                    Result.success(createdInventory)
+                } else {
+                    Result.failure(Exception("Failed to create inventory"))
+                }
+                } else {
+                Result.failure(Exception("Failed to create inventory"))
+            }
+        } catch (e: Exception) {
+            android.util.Log.e("InventoryDataSource", "Error creating inventory", e)
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun editInventory(id: String, inventory: InventoryInput): Result<Inventory> {
+        return try {
+            val response = inventoryApi.editInventory(id, inventory)
+            if (response.isSuccessful) {
+                val editedInventory = response.body()
+                if (editedInventory != null) {
+                    Result.success(editedInventory)
+                } else {
+                    Result.failure(Exception("Failed to edit inventory"))
+                }
+            } else {
+                Result.failure(Exception("Failed to edit inventory"))
+            }
+        } catch (e: Exception) {
+            android.util.Log.e("InventoryDataSource", "Error editing inventory", e)
             Result.failure(e)
         }
     }

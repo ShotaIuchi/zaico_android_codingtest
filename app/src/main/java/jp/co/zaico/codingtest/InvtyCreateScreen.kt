@@ -5,5 +5,5 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun InvtyCreateScreen(onEvent: (AppNavEvent) -> Unit, modifier: Modifier = Modifier) {
-    InvtyEditScreen(id = "-1", onEvent = onEvent, modifier = modifier)
+    InvtyEditScreenImpl(title = R.string.invty_create_screen, onEvent = onEvent, modifier = modifier)
 }

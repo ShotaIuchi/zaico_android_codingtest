@@ -2,6 +2,7 @@ package jp.co.zaico.codingtest.data.repository
 
 import jp.co.zaico.codingtest.data.datasource.InventoryDataSource
 import jp.co.zaico.codingtest.model.Inventory
+import jp.co.zaico.codingtest.model.InventoryInput
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -45,6 +46,24 @@ class InventoryRepositoryImpl @Inject constructor(
 
     override suspend fun getInventory(id: String): Result<Inventory> {
         val result = inventoryDataSource.getInventory(id)
+        return if (result.isSuccess) {
+            Result.success(result.getOrThrow())
+        } else {
+            Result.failure(result.exceptionOrNull() ?: Exception("Unknown error"))
+        }
+    }
+
+    override suspend fun createInventory(inventory: InventoryInput): Result<Inventory> {
+        val result = inventoryDataSource.createInventory(inventory)
+        return if (result.isSuccess) {
+            Result.success(result.getOrThrow())
+        } else {
+            Result.failure(result.exceptionOrNull() ?: Exception("Unknown error"))
+        }
+    }
+
+    override suspend fun editInventory(id: String, inventory: InventoryInput): Result<Inventory> {
+        val result = inventoryDataSource.editInventory(id, inventory)
         return if (result.isSuccess) {
             Result.success(result.getOrThrow())
         } else {

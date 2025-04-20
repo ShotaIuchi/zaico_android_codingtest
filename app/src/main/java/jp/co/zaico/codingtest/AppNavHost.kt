@@ -63,7 +63,6 @@ fun AppNavHost(
             InvtyCreateScreen(onEvent = onUiEvent)
         }
 
-
         composable(
             route = Screen.InvtyEdit.fullRoute,
             arguments = listOf(
@@ -72,8 +71,7 @@ fun AppNavHost(
                 }
             )
         ) { backStackEntry ->
-            val id = backStackEntry.arguments?.getString(Screen.InvtyEdit.ARG_ID).orEmpty()
-            InvtyEditScreen(id = id, onEvent = onUiEvent)
+            InvtyEditScreen(onEvent = onUiEvent)
         }
     }
 }
